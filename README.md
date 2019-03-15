@@ -1,6 +1,8 @@
 # Qt5 cross-compile environment based on GCC
 
-Qt5 cross-compile environment based on GCC.
+Qt5 environment for Windows builds based on GCC.
+
+Currently x86 static only.
 
 Usage:
 
