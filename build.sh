@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for NAME in latest latest-x64 latest-lite latest-lite-x64 latest-tiny latest-tiny-x64
+for NAME in latest latest-x64 latest-tiny latest-tiny-x64
 do
   FILENAME=$(sed -e 's/\-/\./g; s/latest\.\?//; s/$/\.Dockerfile/; s/^\.//' <<< $NAME)
   docker build -f $FILENAME -t dixaba/qt5-gcc-cross:$NAME .
