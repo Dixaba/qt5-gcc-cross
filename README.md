@@ -1,6 +1,6 @@
 # Qt5 cross-compile GCC environment
 
-![Build status](https://dev.azure.com/dixaba/Dixaba/_apis/build/status/qt5-gcc-cross)
+[![Build Status](https://dev.azure.com/dixaba/Dixaba/_apis/build/status/qt5-gcc-cross?branchName=master)](https://dev.azure.com/dixaba/Dixaba/_build/latest?definitionId=12&branchName=master)
 [![](https://images.microbadger.com/badges/version/dixaba/qt5-gcc-cross.svg)](https://microbadger.com/images/dixaba/qt5-gcc-cross "Get your own version badge on microbadger.com")
 
 Ubuntu GCC Qt environment for Windows builds.
