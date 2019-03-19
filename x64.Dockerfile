@@ -1,52 +1,14 @@
-FROM ubuntu:16.04
+FROM ubuntu
 RUN \
   apt -y update \
   && apt -y upgrade \
   && apt -y install \
-    autoconf \
-    automake \
-    autopoint \
-    bash \
-    bison \
-    bzip2 \
-    flex \
-    g++ \
-    g++-multilib \
-    gettext \
-    git \
-    gperf \
-    intltool \
-    libc6-dev-i386 \
-    libgdk-pixbuf2.0-dev \
-    libltdl-dev \
-    libssl-dev \
-    libtool-bin \
-    libxml-parser-perl \
-    lzip \
     make \
-    openssl \
-    p7zip-full \
-    patch \
-    perl \
-    pkg-config \
-    python \
-    ruby \
-    sed \
-    unzip \
-    wget \
-    xz-utils \
   && apt -y autoremove \
   && apt -y autoclean \
-  && apt -y clean \
-  && cd /opt \
-  && git clone https://github.com/mxe/mxe.git \
-  && cd /opt/mxe \
-  && NPROC=$(nproc) \
-  && make --jobs=$NPROC JOBS=$NPROC MXE_TARGETS='x86_64-w64-mingw32.static' qtbase \
-  && ln -s /opt/mxe/usr/bin/x86_64-w64-mingw32.static-qmake-qt5 /usr/bin/qmake \
-  && qmake --version \
-  && exit 0 \
-  || exit 1
-ENV PATH="${PATH}:/opt/mxe/usr/bin"
+  && apt -y clean
+COPY --from=dixaba/qt5-gcc-cross:latest-big /opt/x64/mxe/usr/ /opt/x64/mxe/usr/
+RUN ln -s /opt/x64/mxe/usr/bin/x86_64-w64-mingw32.static-qmake-qt5 /usr/bin/qmake
+ENV PATH="${PATH}:/opt/x64/mxe/usr/bin"
 WORKDIR /project/build
 CMD qmake /project/source && make -j $(nproc)
