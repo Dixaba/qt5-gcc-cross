@@ -1,15 +1,12 @@
 # Qt5 cross-compile GCC environment
 
-[![Build Status](https://dev.azure.com/dixaba/Dixaba/_apis/build/status/qt5-gcc-cross?branchName=master)](https://dev.azure.com/dixaba/Dixaba/_build/latest?definitionId=12&branchName=master)
-[![](https://images.microbadger.com/badges/version/dixaba/qt5-gcc-cross.svg)](https://microbadger.com/images/dixaba/qt5-gcc-cross "Get your own version badge on microbadger.com")
-
 Ubuntu GCC Qt environment for Windows builds.
 
 Static builds only.
 
 ## Available images
 
-* **`latest`** image contains latest available x86 version Qt.
+* **`latest`** image contains latest available x86 version Qt: **5.13.0**
 * **`x.y`** image contains exact x86 version of Qt.
 * **`...-x64`** image contains x64 version of same Qt environment.
 * **`...-both`** image contains both x86 and x64 versions of Qt.
