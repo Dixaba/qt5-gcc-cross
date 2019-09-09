@@ -6,7 +6,7 @@ Static builds only.
 
 ## Available images
 
-* **`latest`** image contains latest available x86 version Qt: **5.13.0**
+* **`latest`** image contains latest available x86 version Qt: **5.13.1**
 * **`x.y`** image contains exact x86 version of Qt.
 * **`...-x64`** image contains x64 version of same Qt environment.
 * **`...-both`** image contains both x86 and x64 versions of Qt.
