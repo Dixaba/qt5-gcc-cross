@@ -4,6 +4,8 @@ Ubuntu GCC Qt environment for Windows builds.
 
 Static builds only.
 
+Qt Charts are available from 5.14
+
 ## Available images
 
 * **`latest`** image contains latest available x86 version Qt: **5.14.0**
@@ -14,7 +16,7 @@ Static builds only.
 
 All images have `qmake` as system executable. **`-both`** and  **`-big`** images also has `qmake64`.
 
- #### Warning: **`...-x64`**'s `qmake` is `qmake` despite it builds x64 application.
+### Warning: **`...-x64`**'s `qmake` is `qmake` despite it builds x64 application.
 
 After start every image executes `qmake && make` by default.
 
