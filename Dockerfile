@@ -7,7 +7,7 @@ RUN \
   && apt -y autoremove \
   && apt -y autoclean \
   && apt -y clean
-COPY --from=dixaba/qt5-gcc-cross:latest-bigC /opt/x86/mxe/usr/ /opt/x86/mxe/usr/
+COPY --from=dixaba/qt5-gcc-cross:latestC-big /opt/x86/mxe/usr/ /opt/x86/mxe/usr/
 RUN ln -s /opt/x86/mxe/usr/bin/i686-w64-mingw32.static-qmake-qt5 /usr/bin/qmake
 ENV PATH="${PATH}:/opt/x86/mxe/usr/bin"
 WORKDIR /project/build

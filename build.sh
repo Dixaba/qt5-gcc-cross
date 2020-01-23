@@ -2,7 +2,7 @@
 
 REPONAME=dixaba/qt5-gcc-cross
 
-for NAME in latest-bigC latestC latest-x64C latest-bothC
+for NAME in latestC-big latestC latestC-x64 latestC-both
 do
   FILENAME=$(sed -e 's/\-/\./g; s/latestC\.\?//; s/$/\.Dockerfile/; s/^\.//' <<< $NAME)
   docker build -f $FILENAME -t $REPONAME:$NAME .
