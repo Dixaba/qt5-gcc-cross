@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPONAME=dixaba/qt5-gcc-cross
+REPONAME=dixaba/test
 
 for NAME in latest-big latest latest-x64 latest-both
 do
