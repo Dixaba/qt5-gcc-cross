@@ -1,4 +1,4 @@
-FROM dixaba/test:latest-base
+FROM dixaba/test:base
 COPY --from=dixaba/test:latest-big /opt/x86/mxe/usr/ /opt/x86/mxe/usr/
 COPY --from=dixaba/test:latest-big /opt/x64/mxe/usr/ /opt/x64/mxe/usr/
 ENV PATH="${PATH}:/opt/x86/mxe/usr/bin:/opt/x64/mxe/usr/bin"

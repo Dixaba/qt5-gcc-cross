@@ -4,7 +4,8 @@ REPONAME=dixaba/test
 
 if [ $# = 1 ];
 then
-  FILENAME=$(sed -e 's/\-/\./g; s/latest\.\?//; s/$/\.Dockerfile/; s/^\.//' <<< $1)
+  NAME=$1;
+  FILENAME=$(sed -e 's/\-/\./g; s/latest\.\?//; s/$/\.Dockerfile/; s/^\.//' <<< $NAME)
   if [ -e $FILENAME ];
   then
     docker build -f $FILENAME -t $REPONAME:$NAME .

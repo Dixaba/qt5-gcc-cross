@@ -1,4 +1,4 @@
-FROM dixaba/test:latest-base
+FROM dixaba/test:base
 RUN \
   apt -y update \
   && apt -y upgrade \
