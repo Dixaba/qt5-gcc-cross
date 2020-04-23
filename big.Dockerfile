@@ -1,8 +1,6 @@
 FROM dixaba/test:base
 RUN \
-  apt -y update \
-  && apt -y upgrade \
-  && apt -y install \
+  apt -y install \
     autoconf \
     automake \
     autopoint \
