@@ -1,12 +1,4 @@
-FROM ubuntu
-RUN \
-  apt -y update \
-  && apt -y upgrade \
-  && apt -y install \
-    make \
-  && apt -y autoremove \
-  && apt -y autoclean \
-  && apt -y clean
+FROM dixaba/test:latest-base
 COPY --from=dixaba/test:latest-big /opt/x86/mxe/usr/ /opt/x86/mxe/usr/
 COPY --from=dixaba/test:latest-big /opt/x64/mxe/usr/ /opt/x64/mxe/usr/
 ENV PATH="${PATH}:/opt/x86/mxe/usr/bin:/opt/x64/mxe/usr/bin"

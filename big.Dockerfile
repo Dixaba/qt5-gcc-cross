@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM dixaba/test:latest-base
 RUN \
   apt -y update \
   && apt -y upgrade \
@@ -23,7 +23,6 @@ RUN \
     libtool-bin \
     libxml-parser-perl \
     lzip \
-    make \
     openssl \
     p7zip-full \
     patch \
