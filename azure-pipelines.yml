@@ -1,4 +1,5 @@
-# name: $(SourceBranchName)-$(Date:yyyy.MM.dd)$(Rev:.r)
+name: $(SourceBranchName)-$(Date:yyyy.MM.dd)$(Rev:.r)
+
 trigger:
   - test
 
