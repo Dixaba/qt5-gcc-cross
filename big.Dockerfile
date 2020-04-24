@@ -2,7 +2,8 @@ FROM ubuntu
 RUN \
   apt -y update \
   && apt -y upgrade \
-  && apt -y install \
+  && DEBIAN_FRONTEND=noninteractive \
+  apt -y install \
     autoconf \
     automake \
     autopoint \
