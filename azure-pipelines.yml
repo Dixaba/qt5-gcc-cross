@@ -1,0 +1,124 @@
+# name: $(SourceBranchName)-$(Date:yyyy.MM.dd)$(Rev:.r)
+trigger:
+  - test
+
+pr: none
+
+jobs:
+  - job: big
+    pool:
+      name: Azure Pipelines
+    steps:
+    - task: Docker@1
+      displayName: 'docker login'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: login
+
+    - task: Bash@3
+      displayName: 'build.sh base'
+      inputs:
+        targetType: filePath
+        filePath: ./build.sh
+        arguments: big
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: Docker@1
+      displayName: 'docker push'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: dixaba/test
+
+
+  - job: latest
+    dependsOn:
+    - big
+    pool:
+      name: Azure Pipelines
+    steps:
+    - task: Docker@1
+      displayName: 'docker login'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: login
+
+    - task: Bash@3
+      displayName: 'build.sh base'
+      inputs:
+        targetType: filePath
+        filePath: ./build.sh
+        arguments: latest
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: Docker@1
+      displayName: 'docker push'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: dixaba/test
+
+
+  - job: latestx64
+    dependsOn:
+    - big
+    pool:
+      name: Azure Pipelines
+    steps:
+    - task: Docker@1
+      displayName: 'docker login'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: login
+    
+    - task: Bash@3
+      displayName: 'build.sh base'
+      inputs:
+        targetType: filePath
+        filePath: ./build.sh
+        arguments: latest-x64
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: Docker@1
+      displayName: 'docker push'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: dixaba/test
+
+
+  - job: both
+    dependsOn:
+    - latest
+    - latestx64
+    pool:
+      name: Azure Pipelines
+    steps:
+    - task: Docker@1
+      displayName: 'docker login'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: login
+    
+    - task: Bash@3
+      displayName: 'build.sh base'
+      inputs:
+        targetType: filePath
+        filePath: ./build.sh
+        arguments: both
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: Docker@1
+      displayName: 'docker push'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: dixaba/test
