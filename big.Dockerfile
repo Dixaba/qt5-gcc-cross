@@ -1,6 +1,8 @@
-FROM dixaba/test:base
+FROM ubuntu
 RUN \
-  apt -y install \
+  apt -y update \
+  && apt -y upgrade \
+  && apt -y install \
     autoconf \
     automake \
     autopoint \
@@ -21,6 +23,7 @@ RUN \
     libtool-bin \
     libxml-parser-perl \
     lzip \
+    make \
     openssl \
     p7zip-full \
     patch \
