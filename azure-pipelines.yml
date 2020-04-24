@@ -1,9 +1,12 @@
-name: $(SourceBranchName)-$(Date:yyyy.MM.dd)$(Rev:.r)
+name: $(BuildID)
 
 trigger:
   - test
 
 pr: none
+
+variables:
+  image: dixaba/test
 
 jobs:
   - job: big
@@ -31,7 +34,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: dixaba/test
+        imageName: $(image)
 
 
   - job: latest
@@ -61,7 +64,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: dixaba/test
+        imageName: $(image)
 
 
   - job: latestx64
@@ -91,7 +94,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: dixaba/test
+        imageName: $(image)
 
 
   - job: both
@@ -122,4 +125,4 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: dixaba/test
+        imageName: $(image)
