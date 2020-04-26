@@ -1,0 +1,57 @@
+name: $(BuildID)
+
+trigger:
+  - master
+
+pr: none
+
+variables:
+  DockerImageName: dixaba/qt5-gcc-cross
+
+jobs:
+  - job: big
+    timeoutInMinutes: 0
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - template: build_image.yml
+        parameters:
+          ImageName: 'latest-big'
+          DockerImageName: $(DockerImageName)
+
+  - job: latest
+    timeoutInMinutes: 0
+    dependsOn:
+      - big
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - template: build_image.yml
+        parameters:
+          ImageName: 'latest'
+          DockerImageName: $(DockerImageName)
+
+  - job: latestx64
+    timeoutInMinutes: 0
+    dependsOn:
+      - big
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - template: build_image.yml
+        parameters:
+          ImageName: 'latest-x64'
+          DockerImageName: $(DockerImageName)
+
+  - job: both
+    timeoutInMinutes: 0
+    dependsOn:
+      - latest
+      - latestx64
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - template: build_image.yml
+        parameters:
+          ImageName: 'latest-both'
+          DockerImageName: $(DockerImageName)

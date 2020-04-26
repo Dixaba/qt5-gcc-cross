@@ -1,0 +1,37 @@
+parameters:
+  - name: ImageName
+    type: string
+    default: ''
+  - name: DockerImageName
+    type: string
+    default: ''
+
+steps:
+  - task: Docker@1
+    displayName: 'docker login'
+    inputs:
+      containerregistrytype: 'Container Registry'
+      dockerRegistryEndpoint: 'Docker Hub'
+      command: login
+    
+  - task: Bash@3
+    displayName: chmod
+    inputs:
+      targetType: 'inline'
+      script: chmod +x build.sh
+
+  - task: Bash@3
+    displayName: 'build.sh'
+    inputs:
+      targetType: filePath
+      filePath: ./build.sh
+      arguments: '${{ parameters.ImageName }}'
+      workingDirectory: '$(Build.SourcesDirectory)'
+
+  - task: Docker@1
+    displayName: 'docker push'
+    inputs:
+      containerregistrytype: 'Container Registry'
+      dockerRegistryEndpoint: 'Docker Hub'
+      command: 'Push an image'
+      imageName: '${{ parameters.DockerImageName }}'
