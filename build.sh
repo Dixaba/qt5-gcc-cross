@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPONAME=dixaba/test
+REPONAME=dixaba/qt5-gcc-cross
 
 if [ $# = 1 ];
 then
@@ -9,11 +9,8 @@ then
   if [ -e $FILENAME ];
   then
     docker build -f $FILENAME -t $REPONAME:$NAME .
-    if [ $NAME != "base" ]
-    then
-      VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version))
-      docker image tag $REPONAME:$NAME $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME)
-    fi
+    VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version))
+    docker image tag $REPONAME:$NAME $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME)
   else
     echo "No such Dockerfile found!";
   fi
