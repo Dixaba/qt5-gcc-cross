@@ -8,50 +8,66 @@ pr: none
 variables:
   DockerImageName: dixaba/qt5-gcc-cross
 
-jobs:
-  - job: big
-    timeoutInMinutes: 0
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest-big'
-          DockerImageName: $(DockerImageName)
+pool:
+  vmImage: ubuntu-latest
 
+jobs:
   - job: latest
     timeoutInMinutes: 0
-    dependsOn:
-      - big
-    pool:
-      vmImage: ubuntu-latest
     steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest'
-          DockerImageName: $(DockerImageName)
+
+    - task: Bash@3
+      displayName: Bash
+      inputs:
+        targetType: 'inline'
+        script: |
+          chmod +x build.sh
+          ./build.sh latest-buildx86
+          ./build.sh latest tag
+          docker rmi $(DockerImageName):latest-buildx86
+
+    - template: push_images.yml
+      parameters:
+        DockerImageName: $(DockerImageName)
+
 
   - job: latestx64
     timeoutInMinutes: 0
-    dependsOn:
-      - big
-    pool:
-      vmImage: ubuntu-latest
     steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest-x64'
-          DockerImageName: $(DockerImageName)
+
+    - task: Bash@3
+      displayName: Bash
+      inputs:
+        targetType: 'inline'
+        script: |
+          chmod +x build.sh
+          ./build.sh latest-buildx64
+          ./build.sh latest-x64 tag
+          docker rmi $(DockerImageName):latest-buildx64
+
+    - template: push_images.yml
+      parameters:
+        DockerImageName: $(DockerImageName)
+
 
   - job: both
     timeoutInMinutes: 0
+
     dependsOn:
       - latest
       - latestx64
-    pool:
-      vmImage: ubuntu-latest
+
     steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest-both'
-          DockerImageName: $(DockerImageName)
+    - task: Bash@3
+      displayName: Bash
+      inputs:
+        targetType: 'inline'
+        script: |
+          chmod +x build.sh
+          ./build.sh latest-both tag
+          docker rmi $(DockerImageName):latest
+          docker rmi $(DockerImageName):latest-x64
+
+    - template: push_images.yml
+      parameters:
+        DockerImageName: $(DockerImageName)

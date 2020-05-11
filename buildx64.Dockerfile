@@ -39,16 +39,12 @@ RUN \
   && apt -y autoremove \
   && apt -y autoclean \
   && apt -y clean 
-RUN mkdir /opt/x86
-WORKDIR /opt/x86
-RUN git clone https://github.com/mxe/mxe.git \
-   && cp -r /opt/x86 /opt/x64
-WORKDIR /opt/x86/mxe
-RUN make --jobs=$(nproc) JOBS=$(nproc) MXE_USE_CCACHE= MXE_TARGETS='i686-w64-mingw32.static' qtbase qtcharts && make clean-junk && make clean-pkg
+RUN mkdir /opt/x64
+WORKDIR /opt/x64
+RUN git clone https://github.com/mxe/mxe.git
 WORKDIR /opt/x64/mxe
 RUN make --jobs=$(nproc) JOBS=$(nproc) MXE_USE_CCACHE= MXE_TARGETS='x86_64-w64-mingw32.static' qtbase qtcharts && make clean-junk && make clean-pkg
-ENV PATH="${PATH}:/opt/x86/mxe/usr/bin:/opt/x64/mxe/usr/bin"
-RUN ln -s /opt/x86/mxe/usr/bin/i686-w64-mingw32.static-qmake-qt5 /usr/bin/qmake
-RUN ln -s /opt/x64/mxe/usr/bin/x86_64-w64-mingw32.static-qmake-qt5 /usr/bin/qmake64
+ENV PATH="${PATH}:/opt/x64/mxe/usr/bin"
+RUN ln -s /opt/x64/mxe/usr/bin/x86_64-w64-mingw32.static-qmake-qt5 /usr/bin/qmake
 WORKDIR /project/build
 CMD qmake /project/source && make -j $(nproc)
