@@ -8,10 +8,10 @@ Qt Charts are available from 5.14
 
 ## Available images
 
-* **`latest`** image contains latest available x86 version Qt: **5.14.2**
+* **`latest`** image contains latest available x86 version Qt: **5.15.0**
 * **`x.y`** image contains exact x86 version of Qt.
 * **`...-x64`** image contains x64 version of same Qt environment.
-* **`...-both`** image contains both x86 and x64 versions of Qt.
+* **`...-both`** image contains both x86 and x64 versions of Qt. *Deprected since 5.14.3*
 * **`...-big`** image contains both x86 and x64 versions of Qt and all packages used to build environment itself.
 
 All images have `qmake` as system executable. **`-both`** and  **`-big`** images also has `qmake64`.
